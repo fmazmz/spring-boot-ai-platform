@@ -1,11 +1,9 @@
 package org.fmazmz.springbootai.gateway;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import org.fmazmz.springbootai.gateway.openrouter.OpenRouterGw;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/chat")
@@ -19,5 +17,10 @@ public class ChatController {
     @PostMapping
     public ResponseEntity chat(@RequestBody GatewayRequest request) {
         return ResponseEntity.ok(openRouterGw.sendMessage(request));
+    }
+
+    @GetMapping(path = "models")
+    public ResponseEntity getAvailableModels(@Parameter String apiKey) {
+        return ResponseEntity.ok(openRouterGw.getModels(apiKey));
     }
 }

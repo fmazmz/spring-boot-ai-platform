@@ -30,4 +30,12 @@ public class OpenRouterGw implements ModelGateway {
                 .retrieve()
                 .bodyToMono(String.class);
     }
+
+    public Mono<String> getModels(String apiKey) {
+        return client.get()
+                .uri("/models")
+                .header("Authorization", "Bearer " + apiKey)
+                .retrieve()
+                .bodyToMono(String.class);
+    }
 }

@@ -9,6 +9,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class OpenRouterConfig {
 
+    // 10 MB
+    private static final int MAX_IN_MEM_SIZE = 10 * 1024 * 1024;
+
     @Value("${gateway.providers.openrouter.base-url}")
     private String baseUrl;
 
@@ -16,6 +19,10 @@ public class OpenRouterConfig {
     public WebClient openRouterClient() {
         return WebClient.builder()
                 .baseUrl(baseUrl)
+                .codecs(configurer ->
+                        configurer.defaultCodecs()
+                                .maxInMemorySize(MAX_IN_MEM_SIZE)
+                )
                 .build();
     }
 }
