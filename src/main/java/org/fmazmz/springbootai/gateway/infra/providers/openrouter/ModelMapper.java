@@ -1,4 +1,4 @@
-package org.fmazmz.springbootai.gateway.openrouter;
+package org.fmazmz.springbootai.gateway.infra.providers.openrouter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,20 +16,20 @@ import java.util.Map;
 
 @Service
 public class ModelMapper {
-    private final OpenRouterGw openRouterGw;
+    private final OpenRouterClient openRouterClient;
     private final ModelRepository modelRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public ModelMapper(
-            OpenRouterGw openRouterGw,
+            OpenRouterClient openRouterClient,
             ModelRepository modelRepository
     ) {
-        this.openRouterGw = openRouterGw;
+        this.openRouterClient = openRouterClient;
         this.modelRepository = modelRepository;
     }
 
     public List<Model> syncOpenRouterModels() {
-        String payload = openRouterGw.getModels().block();
+        String payload = openRouterClient.fetchModels().block();
         if (payload == null || payload.isBlank()) {
             return List.of();
         }

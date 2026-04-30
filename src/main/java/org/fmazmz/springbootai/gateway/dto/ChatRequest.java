@@ -1,4 +1,4 @@
-package org.fmazmz.springbootai.gateway.openrouter;
+package org.fmazmz.springbootai.gateway.dto;
 
 import org.fmazmz.springbootai.gateway.domain.Message;
 

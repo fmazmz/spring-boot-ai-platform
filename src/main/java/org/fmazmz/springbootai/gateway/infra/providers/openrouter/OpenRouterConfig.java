@@ -1,4 +1,4 @@
-package org.fmazmz.springbootai.gateway.openrouter;
+package org.fmazmz.springbootai.gateway.infra.providers.openrouter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ public class OpenRouterConfig {
     private String baseUrl;
 
     @Bean
-    public WebClient openRouterClient() {
+    public WebClient openRouterWebClient() {
         return WebClient.builder()
                 .baseUrl(baseUrl)
                 .codecs(configurer ->

@@ -1,4 +1,4 @@
-package org.fmazmz.springbootai.security;
+package org.fmazmz.springbootai.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
