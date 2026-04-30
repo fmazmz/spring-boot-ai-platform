@@ -1,6 +1,6 @@
 package org.fmazmz.springbootai.gateway.application;
 
-import org.fmazmz.springbootai.gateway.domain.ProviderType;
+import org.fmazmz.springbootai.gateway.domain.LlmProvider;
 import org.fmazmz.springbootai.gateway.dto.ChatRequest;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ public class ChatService {
         this.providerClientFactory = providerClientFactory;
     }
 
-    public String sendMessage(ProviderType providerType, ChatRequest request, String userApiKey) {
+    public String sendMessage(LlmProvider providerType, ChatRequest request, String userApiKey) {
         return providerClientFactory.getClient(providerType)
                 .chat(request, userApiKey)
                 .block();

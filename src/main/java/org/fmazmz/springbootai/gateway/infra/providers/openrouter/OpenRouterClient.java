@@ -1,7 +1,7 @@
 package org.fmazmz.springbootai.gateway.infra.providers.openrouter;
 
 import org.fmazmz.springbootai.gateway.application.ProviderClient;
-import org.fmazmz.springbootai.gateway.domain.ProviderType;
+import org.fmazmz.springbootai.gateway.domain.LlmProvider;
 import org.fmazmz.springbootai.gateway.dto.ChatRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +25,8 @@ public class OpenRouterClient implements ProviderClient {
     }
 
     @Override
-    public ProviderType providerType() {
-        return ProviderType.OPENROUTER;
+    public LlmProvider providerType() {
+        return LlmProvider.OPENROUTER;
     }
 
     @Override

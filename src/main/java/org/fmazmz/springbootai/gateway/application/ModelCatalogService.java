@@ -1,7 +1,7 @@
 package org.fmazmz.springbootai.gateway.application;
 
 import org.fmazmz.springbootai.gateway.domain.Model;
-import org.fmazmz.springbootai.gateway.domain.ProviderType;
+import org.fmazmz.springbootai.gateway.domain.LlmProvider;
 import org.fmazmz.springbootai.gateway.dto.ModelOptionResponse;
 import org.fmazmz.springbootai.gateway.infra.providers.openrouter.ModelMapper;
 import org.fmazmz.springbootai.gateway.repository.ModelRepository;
@@ -19,8 +19,8 @@ public class ModelCatalogService {
         this.modelRepository = modelRepository;
     }
 
-    public List<ModelOptionResponse> getModels(ProviderType providerType) {
-        if (providerType != ProviderType.OPENROUTER) {
+    public List<ModelOptionResponse> getModels(LlmProvider providerType) {
+        if (providerType != LlmProvider.OPENROUTER) {
             return List.of();
         }
         return modelRepository.findAllByOrderBySlugAsc()
@@ -29,7 +29,7 @@ public class ModelCatalogService {
                 .toList();
     }
 
-    public List<ModelOptionResponse> syncModels(ProviderType providerType) {
+    public List<ModelOptionResponse> syncModels(LlmProvider providerType) {
         List<Model> synced = switch (providerType) {
             case OPENROUTER -> openRouterModelMapper.syncOpenRouterModels();
         };

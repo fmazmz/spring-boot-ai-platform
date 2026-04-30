@@ -3,7 +3,7 @@ package org.fmazmz.springbootai.gateway.http;
 import org.fmazmz.springbootai.gateway.application.ChatService;
 import org.fmazmz.springbootai.gateway.application.ModelCatalogService;
 import org.fmazmz.springbootai.gateway.dto.ModelOptionResponse;
-import org.fmazmz.springbootai.gateway.domain.ProviderType;
+import org.fmazmz.springbootai.gateway.domain.LlmProvider;
 import org.fmazmz.springbootai.gateway.dto.ChatRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class ChatController {
 
     @PostMapping
     public ResponseEntity<String> chat(
-            @RequestParam(defaultValue = "OPENROUTER") ProviderType provider,
+            @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider,
             @RequestHeader(name = "X-Provider-Api-Key", required = false) String userApiKey,
             @RequestBody ChatRequest request
     ) {
@@ -40,14 +40,14 @@ public class ChatController {
 
     @GetMapping(path = "models")
     public ResponseEntity<List<ModelOptionResponse>> getAvailableModels(
-            @RequestParam(defaultValue = "OPENROUTER") ProviderType provider
+            @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider
     ) {
         return ResponseEntity.ok(modelCatalogService.getModels(provider));
     }
 
     @PostMapping(path = "models/sync")
     public ResponseEntity<List<ModelOptionResponse>> syncAvailableModels(
-            @RequestParam(defaultValue = "OPENROUTER") ProviderType provider
+            @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider
     ) {
         return ResponseEntity.ok(modelCatalogService.syncModels(provider));
     }

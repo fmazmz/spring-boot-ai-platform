@@ -1,11 +1,11 @@
 package org.fmazmz.springbootai.gateway.application;
 
-import org.fmazmz.springbootai.gateway.domain.ProviderType;
+import org.fmazmz.springbootai.gateway.domain.LlmProvider;
 import org.fmazmz.springbootai.gateway.dto.ChatRequest;
 import reactor.core.publisher.Mono;
 
 public interface ProviderClient {
-    ProviderType providerType();
+    LlmProvider providerType();
 
     Mono<String> chat(ChatRequest request, String userApiKey);
 

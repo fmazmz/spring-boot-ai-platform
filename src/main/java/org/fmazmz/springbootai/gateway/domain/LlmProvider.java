@@ -1,5 +1,5 @@
 package org.fmazmz.springbootai.gateway.domain;
 
-public enum ProviderType {
+public enum LlmProvider {
     OPENROUTER
 }
