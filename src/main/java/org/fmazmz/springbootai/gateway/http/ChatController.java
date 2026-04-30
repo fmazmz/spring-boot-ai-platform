@@ -1,5 +1,7 @@
 package org.fmazmz.springbootai.gateway.http;
 
+import org.fmazmz.springbootai.common.http.ApiResponseWrapper;
+import org.fmazmz.springbootai.common.http.PagedResult;
 import org.fmazmz.springbootai.gateway.application.ChatService;
 import org.fmazmz.springbootai.gateway.application.ModelCatalogService;
 import org.fmazmz.springbootai.gateway.dto.ModelOptionResponse;
@@ -7,11 +9,11 @@ import org.fmazmz.springbootai.gateway.domain.LlmProvider;
 import org.fmazmz.springbootai.gateway.dto.ChatRequest;
 import org.fmazmz.springbootai.user.User;
 import org.fmazmz.springbootai.user.http.CurrentUser;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/chat")
@@ -28,7 +30,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public ResponseEntity<String> chat(
+    public ResponseEntity<ApiResponseWrapper<String>> chat(
             @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider,
             @RequestHeader(name = "X-Provider-Api-Key", required = false) String userApiKey,
             @CurrentUser User currentUser,
@@ -36,23 +38,26 @@ public class ChatController {
     ) {
         if (userApiKey == null || userApiKey.isBlank()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("Missing required header: X-Provider-Api-Key");
+                    .body(new ApiResponseWrapper<>("Missing required header: X-Provider-Api-Key"));
         }
-        return ResponseEntity.ok(chatService.sendMessage(provider, request, userApiKey));
+        return ResponseEntity.ok(new ApiResponseWrapper<>(chatService.sendMessage(provider, request, userApiKey)));
     }
 
     @GetMapping(path = "models")
-    public ResponseEntity<List<ModelOptionResponse>> getAvailableModels(
-            @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider
+    public ResponseEntity<ApiResponseWrapper<PagedResult<ModelOptionResponse>>> getAvailableModels(
+            @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider,
+            @RequestParam(required = false) String search,
+            Pageable pageable
     ) {
-        return ResponseEntity.ok(modelCatalogService.getModels(provider));
+        Page<ModelOptionResponse> modelsPage = modelCatalogService.getModels(provider, search, pageable);
+        return ResponseEntity.ok(new ApiResponseWrapper<>(PagedResult.from(modelsPage)));
     }
 
     @PostMapping(path = "models/sync")
-    public ResponseEntity<List<ModelOptionResponse>> syncAvailableModels(
+    public ResponseEntity<ApiResponseWrapper<java.util.List<ModelOptionResponse>>> syncAvailableModels(
             @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider,
             @CurrentUser User currentUser
     ) {
-        return ResponseEntity.ok(modelCatalogService.syncModels(provider));
+        return ResponseEntity.ok(new ApiResponseWrapper<>(modelCatalogService.syncModels(provider)));
     }
 }

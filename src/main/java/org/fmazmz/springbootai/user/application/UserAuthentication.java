@@ -21,7 +21,7 @@ public class UserAuthentication {
         this.userRepository = userRepository;
     }
 
-    public User resolveUser(OAuth2AuthenticationToken authenticationToken, boolean allowCreate) {
+    public User resolveUser(OAuth2AuthenticationToken authenticationToken) {
         AuthProvider loginProvider = AuthProvider.fromRegistrationId(authenticationToken.getAuthorizedClientRegistrationId());
         // temporary check
         if (loginProvider != AuthProvider.GITHUB) {
@@ -40,15 +40,12 @@ public class UserAuthentication {
 
         Optional<User> preProvisioned = userRepository.findByEmailIgnoreCase(email);
         if (preProvisioned.isEmpty()) {
-            if (allowCreate) {
-                GithubUser newUser = new GithubUser();
-                newUser.setAuthProvider(AuthProvider.GITHUB);
-                newUser.setProviderId(providerId);
-                newUser.setAvatarUrl(avatarUrl);
-                newUser.setEmail(email);
-                return userRepository.save(newUser);
-            }
-            throw new IllegalStateException("No account found for this email. Please sign up before logging in.");
+            GithubUser newUser = new GithubUser();
+            newUser.setAuthProvider(AuthProvider.GITHUB);
+            newUser.setProviderId(providerId);
+            newUser.setAvatarUrl(avatarUrl);
+            newUser.setEmail(email);
+            return userRepository.save(newUser);
         }
 
         User user = preProvisioned.get();
