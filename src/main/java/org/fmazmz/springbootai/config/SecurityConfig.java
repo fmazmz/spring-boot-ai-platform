@@ -21,13 +21,13 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/error", "/signup", "/login", "/swagger-ui/**", "/v3/api-docs/**",
-                                "/api/v1/auth/signup", "/api/v1/auth/login").permitAll()
+                        .requestMatchers("/error", "/signup", "/login", "/oauth2/**", "/login/oauth2/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(form -> form.disable())
-                .oauth2Login(oauth -> oauth.successHandler((request, response, authentication) -> {
+                .oauth2Login(oauth -> oauth.successHandler(
+                        (request, response, authentication) -> {
                     if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
                         HttpSession session = request.getSession(false);
                         boolean allowCreate = session != null

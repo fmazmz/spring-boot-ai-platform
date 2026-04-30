@@ -5,6 +5,8 @@ import org.fmazmz.springbootai.gateway.application.ModelCatalogService;
 import org.fmazmz.springbootai.gateway.dto.ModelOptionResponse;
 import org.fmazmz.springbootai.gateway.domain.LlmProvider;
 import org.fmazmz.springbootai.gateway.dto.ChatRequest;
+import org.fmazmz.springbootai.user.User;
+import org.fmazmz.springbootai.user.http.CurrentUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,7 @@ public class ChatController {
     public ResponseEntity<String> chat(
             @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider,
             @RequestHeader(name = "X-Provider-Api-Key", required = false) String userApiKey,
+            @CurrentUser User currentUser,
             @RequestBody ChatRequest request
     ) {
         if (userApiKey == null || userApiKey.isBlank()) {
@@ -47,7 +50,8 @@ public class ChatController {
 
     @PostMapping(path = "models/sync")
     public ResponseEntity<List<ModelOptionResponse>> syncAvailableModels(
-            @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider
+            @RequestParam(defaultValue = "OPENROUTER") LlmProvider provider,
+            @CurrentUser User currentUser
     ) {
         return ResponseEntity.ok(modelCatalogService.syncModels(provider));
     }
