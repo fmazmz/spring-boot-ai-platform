@@ -1,6 +1,7 @@
 package org.fmazmz.springbootai.gateway.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,10 @@ public abstract class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(columnDefinition = "TEXT")
+    @Size(max = 255)
+    private String name;
 
     @Column(unique = true, nullable = false)
     private String slug;

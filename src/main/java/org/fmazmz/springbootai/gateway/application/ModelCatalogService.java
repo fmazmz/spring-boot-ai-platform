@@ -39,6 +39,7 @@ public class ModelCatalogService {
     private ModelOptionResponse toOption(Model model) {
         return new ModelOptionResponse(
                 model.getId(),
+                model.getName(),
                 model.getSlug(),
                 model.getPricing() != null ? model.getPricing().getPrompt() : null,
                 model.getPricing() != null ? model.getPricing().getCompletion() : null,

@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public record ModelOptionResponse(
         UUID id,
+        String name,
         String slug,
         String promptPrice,
         String completionPrice,

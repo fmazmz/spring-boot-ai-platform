@@ -49,6 +49,7 @@ public class ModelMapper {
         for (OpenRouterModel parsed : parsedModels) {
             Model target = existingBySlug.getOrDefault(parsed.getSlug(), new OpenRouterModel());
             target.setSlug(parsed.getSlug());
+            target.setName(parsed.getName());
             target.setPricing(parsed.getPricing());
             target.setSupportedParameters(parsed.getSupportedParameters());
             toSave.add(target);
@@ -74,6 +75,7 @@ public class ModelMapper {
 
                 OpenRouterModel model = new OpenRouterModel();
                 model.setSlug(slug);
+                model.setName(node.path("name").asText(null));
                 model.setSupportedParameters(readSupportedParameters(node.path("supported_parameters")));
 
                 ModelPricing pricing = new ModelPricing();
