@@ -2,12 +2,15 @@ server:
   port: 8080
 spring:
   application:
-    name: springboot-ai-integration
+    name: ai-integration-platform
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
 gateway:
   providers:
     openrouter:

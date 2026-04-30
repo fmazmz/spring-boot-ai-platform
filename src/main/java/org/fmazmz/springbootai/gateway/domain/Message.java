@@ -1,9 +1,9 @@
-package org.fmazmz.springbootai.gateway;
+package org.fmazmz.springbootai.gateway.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "messages")
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
