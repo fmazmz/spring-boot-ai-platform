@@ -1,7 +1,7 @@
 package org.fmazmz.springbootai.user.repository;
 
-import org.fmazmz.springbootai.user.AuthProvider;
-import org.fmazmz.springbootai.user.User;
+import org.fmazmz.springbootai.user.domain.AuthProvider;
+import org.fmazmz.springbootai.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

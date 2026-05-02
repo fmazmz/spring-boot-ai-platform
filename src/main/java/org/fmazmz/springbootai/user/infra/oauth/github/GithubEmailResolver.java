@@ -1,4 +1,4 @@
-package org.fmazmz.springbootai.user;
+package org.fmazmz.springbootai.user.infra.oauth.github;
 
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;

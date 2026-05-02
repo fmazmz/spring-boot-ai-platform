@@ -1,4 +1,4 @@
-package org.fmazmz.springbootai.user;
+package org.fmazmz.springbootai.user.domain;
 
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;

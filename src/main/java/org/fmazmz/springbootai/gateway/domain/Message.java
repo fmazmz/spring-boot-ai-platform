@@ -1,5 +1,6 @@
 package org.fmazmz.springbootai.gateway.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -25,4 +26,9 @@ public class Message {
     @Column(columnDefinition = "TEXT")
     @Size(max = 5000)
     private String content;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "session_id")
+    private Session session;
 }

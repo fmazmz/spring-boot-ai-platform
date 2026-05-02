@@ -1,7 +1,7 @@
 package org.fmazmz.springbootai.user.http;
 
-import org.fmazmz.springbootai.user.AuthProvider;
-import org.fmazmz.springbootai.user.User;
+import org.fmazmz.springbootai.user.domain.AuthProvider;
+import org.fmazmz.springbootai.user.domain.User;
 import org.fmazmz.springbootai.user.repository.UserRepository;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;

@@ -1,7 +1,8 @@
 package org.fmazmz.springbootai.user.http;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import org.fmazmz.springbootai.common.http.ApiResponseWrapper;
-import org.fmazmz.springbootai.user.User;
+import org.fmazmz.springbootai.user.domain.User;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,10 @@ public class AuthController {
     }
 
     @GetMapping("/api/v1/auth/me")
-    public ApiResponseWrapper<MeResponse> me(@CurrentUser User user) {
+    public ApiResponseWrapper<MeResponse> me(
+            @Parameter(hidden = true)
+            @CurrentUser User user
+    ) {
         return new ApiResponseWrapper<>(new MeResponse(
                 user.getId(),
                 user.getEmail(),

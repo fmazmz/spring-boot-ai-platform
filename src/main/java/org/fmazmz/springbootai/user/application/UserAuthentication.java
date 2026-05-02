@@ -1,9 +1,9 @@
 package org.fmazmz.springbootai.user.application;
 
-import org.fmazmz.springbootai.user.AuthProvider;
-import org.fmazmz.springbootai.user.GithubEmailResolver;
-import org.fmazmz.springbootai.user.GithubUser;
-import org.fmazmz.springbootai.user.User;
+import org.fmazmz.springbootai.user.domain.AuthProvider;
+import org.fmazmz.springbootai.user.infra.oauth.github.GithubEmailResolver;
+import org.fmazmz.springbootai.user.domain.GithubUser;
+import org.fmazmz.springbootai.user.domain.User;
 import org.fmazmz.springbootai.user.repository.UserRepository;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
