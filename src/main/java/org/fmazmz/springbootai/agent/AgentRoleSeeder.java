@@ -1,6 +1,10 @@
 package org.fmazmz.springbootai.agent;
 
 import lombok.extern.slf4j.Slf4j;
+import org.fmazmz.springbootai.agent.domain.AgentRole;
+import org.fmazmz.springbootai.agent.domain.Prompt;
+import org.fmazmz.springbootai.agent.domain.Role;
+import org.fmazmz.springbootai.agent.repository.AgentRoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -22,6 +26,9 @@ public class AgentRoleSeeder implements CommandLineRunner {
         log.info("Seeding Roles ...");
 
         for (AgentRole i : EnumSet.allOf(AgentRole.class)) {
+            if (agentRoleRepository.existsByName(i.name())) {
+                continue;
+            }
             Role agentRole = new Role();
             agentRole.setName(i.name());
 

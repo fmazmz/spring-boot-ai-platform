@@ -1,4 +1,4 @@
-package org.fmazmz.springbootai.agent;
+package org.fmazmz.springbootai.agent.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
