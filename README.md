@@ -11,6 +11,8 @@ Spring Boot service that sits between authenticated users and OpenRouter: GitHub
 
 Set environment variables (or a project-root `.env` file; the app loads it on startup if present):
 
+Use the provided `.env.example` : `cp .env.example .env`
+
 | Variable | Purpose |
 |----------|---------|
 | `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, `SPRING_DATASOURCE_PASSWORD` | JDBC to Postgres |
