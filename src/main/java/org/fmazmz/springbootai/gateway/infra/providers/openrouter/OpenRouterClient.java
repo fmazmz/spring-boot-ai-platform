@@ -17,13 +17,16 @@ import java.util.Map;
 @Service
 public class OpenRouterClient implements ProviderClient {
     private final RestClient client;
+    private final OpenRouterCompletionInvoker completionInvoker;
     private final String internalApiKey;
 
     public OpenRouterClient(
             @Qualifier("openRouterRestClient") RestClient openRouterClient,
+            OpenRouterCompletionInvoker completionInvoker,
             @Value("${gateway.providers.openrouter.api-key}") String apiKey
     ) {
         this.client = openRouterClient;
+        this.completionInvoker = completionInvoker;
         this.internalApiKey = apiKey;
     }
 
@@ -39,14 +42,7 @@ public class OpenRouterClient implements ProviderClient {
         body.put("messages", request.messages());
         body.put("stream", request.stream());
 
-        return Mono.fromCallable(() -> client.post()
-                        .uri("/chat/completions")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + userApiKey)
-                        .body(body)
-                        .retrieve()
-                        .body(String.class))
+        return Mono.fromCallable(() -> completionInvoker.postChatCompletions(body, userApiKey))
                 .subscribeOn(Schedulers.boundedElastic());
     }
 

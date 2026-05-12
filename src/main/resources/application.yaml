@@ -36,3 +36,8 @@ gateway:
     openrouter:
       base-url: "https://openrouter.ai/api/v1"
       api-key: ${OPENROUTER_API_KEY}
+      default-model: "openai/gpt-4o-mini"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

@@ -1,7 +1,7 @@
 package org.fmazmz.springbootai.agent.application;
 
 import org.fmazmz.springbootai.agent.domain.Prompt;
-import org.fmazmz.springbootai.agent.domain.Role;
+import org.fmazmz.springbootai.agent.domain.Agent;
 import org.fmazmz.springbootai.agent.dto.AgentResponse;
 import org.fmazmz.springbootai.agent.dto.CreateAgentRequest;
 import org.fmazmz.springbootai.agent.dto.PatchAgentRequest;
@@ -36,7 +36,7 @@ public class AgentService {
 
     @Transactional
     public AgentResponse createAgent(CreateAgentRequest request) {
-        Role role = new Role();
+        Agent role = new Agent();
         role.setName(request.name());
         Prompt prompt = new Prompt();
         prompt.setText(request.promptText() != null ? request.promptText() : "");
@@ -46,7 +46,7 @@ public class AgentService {
 
     @Transactional
     public AgentResponse replaceAgent(UUID id, CreateAgentRequest request) {
-        Role role = agentRoleRepository.findById(id)
+        Agent role = agentRoleRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agent not found"));
         role.setName(request.name());
         if (role.getPrompt() == null) {
@@ -58,7 +58,7 @@ public class AgentService {
 
     @Transactional
     public AgentResponse patchAgent(UUID id, PatchAgentRequest request) {
-        Role role = agentRoleRepository.findById(id)
+        Agent role = agentRoleRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Agent not found"));
         if (request.name() != null) {
             if (request.name().isBlank()) {

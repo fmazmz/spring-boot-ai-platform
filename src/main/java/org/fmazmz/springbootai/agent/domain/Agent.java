@@ -9,11 +9,11 @@ import lombok.Setter;
 import java.util.UUID;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "agents")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Role {
+public class Agent {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
